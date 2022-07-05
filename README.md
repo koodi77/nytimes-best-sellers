@@ -2,10 +2,10 @@
 
 ## Installing
 
-Get started using the NYT's API and get your Access Key:
+Get started using the NYT's API and get your API Key:
 https://developer.nytimes.com/get-started
 
-Update `api/.env` with your access key:
+Update `api/.env` with your API key:
 ```
 API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
