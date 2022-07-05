@@ -79,8 +79,8 @@ function App() {
       </Box>
       <Typography variant='h1'>The New York Times Best Sellers</Typography>
       <Typography variant='h2' color='secondary'>Authoritatively ranked lists of books sold in the United States</Typography>
-      {<Selector names={names?.data} value={listName} onChange={handleChange} />}
-      {(books?.loading || names?.loading) ? <Loading /> : <BooksList books={books?.data} />}
+      <Selector names={names?.data} value={listName} onChange={handleChange} />
+      {(books?.loading) ? <Loading /> : <BooksList books={books?.data} />}
       {(books?.error || names?.error) && <Error />}
     </Container>
   )
