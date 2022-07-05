@@ -31,7 +31,7 @@ function Books(props: BooksProps) {
                 </Box>
               }
             </Box>
-            <Box sx={{ width: '20%' }}>
+            <Box sx={{ width: '20%', textAlign: 'end' }}>
               {book?.image && <img src={book.image} height="auto" width="80" alt={book.title} onError={(event: any) => event.target.style.visibility = 'hidden'} />}
             </Box>
           </Box>
