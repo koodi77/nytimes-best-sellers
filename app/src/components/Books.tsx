@@ -21,11 +21,15 @@ function Books(props: BooksProps) {
               <Typography color="secondary">by {book.author}</Typography>
               <Typography>{book.description}</Typography>
               <Typography>ISBN: {book.isbn13}</Typography>
-              {book?.reviews?.map((review: Review) => (
-                <Typography key={review.url}>
-                  <Link href={review.url} target="_blank" rel="noreferrer">Review by {review.byline.replace(/^by/i, '')}</Link>
-                </Typography>
-              ))}
+              {Number(book?.reviews?.length) > 0 &&
+                <Box sx={{ mt: 2 }}>
+                  {book?.reviews?.map((review: Review) => (
+                    <Typography key={review.url}>
+                      <Link href={review.url} target="_blank" rel="noreferrer">Review by {review.byline.replace(/^by/i, '')}</Link>
+                    </Typography>
+                  ))}
+                </Box>
+              }
             </Box>
             <Box sx={{ width: '20%' }}>
               <img src={`https://storage.googleapis.com/du-prd/books/images/${book.isbn13}.jpg`} height="auto" width="80" alt={book.title} onError={(event: any) => event.target.style.visibility = 'hidden'} />
