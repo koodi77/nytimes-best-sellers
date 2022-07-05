@@ -18,7 +18,7 @@ function Selector(props: SelectorProps) {
       size="small"
       value={props.value ? props.value : ''}
       onChange={props.onChange}
-      sx={{ mt: 2, visibility: !props.names ? 'hidden' : undefined }}
+      sx={{ mt: 4, visibility: !props.names ? 'hidden' : undefined }}
     >
       {props.names?.map((name: Name) => <MenuItem value={name.listNameEncoded} key={name.listNameEncoded}>{name.displayName}</MenuItem>)}
     </Select>

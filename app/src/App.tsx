@@ -74,7 +74,7 @@ function App() {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 2 }}>
-      <Box sx={{ mb: 2 }}>
+      <Box sx={{ mb: 4, display: 'flex', justifyContent: 'center' }}>
         <img src={logo} alt="logo" width={225} />
       </Box>
       <Typography variant='h1'>The New York Times Best Sellers</Typography>

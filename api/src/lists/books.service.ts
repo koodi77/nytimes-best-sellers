@@ -30,11 +30,12 @@ export const findByListName = async (listNameEncoded: string): Promise<Book[]> =
           rank
         } = book
 
-        const { primary_isbn13, title, description,  author } = book?.book_details?.[0] || {}
+        const { primary_isbn13, primary_isbn10, title, description,  author } = book?.book_details?.[0] || {}
         const reviews: Review[] = await getReviews(primary_isbn13)
 
         result.push({
           listNameEncoded: list_name_encoded,
+          isbn10: primary_isbn10,
           isbn13: primary_isbn13,
           rank,
           title,

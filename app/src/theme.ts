@@ -21,11 +21,11 @@ const theme = createTheme({
     fontFamily: helvetica,
     h1: {
       fontFamily: georgia,
-      fontSize: '1.8rem'
+      fontSize: '1.9rem'
     },
     h2: {
       fontFamily: georgia,
-      fontSize: '1rem'
+      fontSize: '1.1rem'
     },
     h3: {
       fontFamily: helvetica,
