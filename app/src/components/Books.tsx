@@ -32,7 +32,7 @@ function Books(props: BooksProps) {
               }
             </Box>
             <Box sx={{ width: '20%' }}>
-              <img src={`https://storage.googleapis.com/du-prd/books/images/${book.isbn13}.jpg`} height="auto" width="80" alt={book.title} onError={(event: any) => event.target.style.visibility = 'hidden'} />
+              {book?.image && <img src={book.image} height="auto" width="80" alt={book.title} onError={(event: any) => event.target.style.visibility = 'hidden'} />}
             </Box>
           </Box>
         </Box>

@@ -9,5 +9,7 @@ export const errorHandler = (
 ) => {
   const status = error.statusCode || error.status || 500
 
+  console.error(error)
+  
   response.status(status).send(error)
 }
