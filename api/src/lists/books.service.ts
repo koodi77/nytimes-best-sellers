@@ -4,15 +4,28 @@ import { Book } from '@interfaces/book.interface'
 import { Review } from '@interfaces/review.interface'
 import apiClient from './apiClient'
 
-const imagePath = (isbn: string) => isbn ? `https://storage.googleapis.com/du-prd/books/images/${isbn}.jpg` : undefined
-const hasImage = (isbn: string) => {
-  const path = imagePath(isbn)
+const getUrl = async (isbn?: string): Promise<string | undefined> => {
+  const path = isbn ? `https://storage.googleapis.com/du-prd/books/images/${isbn}.jpg` : undefined
 
-  if (!path) return false
+  if (!path) return undefined
 
   return axios(path, { method: 'head' })
-    .then(() => true)
-    .catch(() => false)
+    .then(() => path)
+    .catch(() => undefined)
+}
+const getImage = async (book: any): Promise<(string | undefined)> => {
+  let url = await getUrl(book?.book_details?.[0]?.primary_isbn13)
+
+  if (url) {
+    return url
+  } else {
+    for await (const isbn of book?.isbns) {
+      url = await getUrl(isbn?.isbn13)
+      if (url) break
+    }
+  }
+
+  return url
 }
 
 /**
@@ -46,7 +59,7 @@ export const findByListName = async (listNameEncoded: string): Promise<Book[]> =
 
         const { primary_isbn13, primary_isbn10, title, description, author } = book?.book_details?.[0] || {}
         const reviews: Review[] = await getReviews(primary_isbn13)
-        const image = (imagePath(await hasImage(primary_isbn13) ? primary_isbn13 : '') || imagePath(book?.isbns?.find(async (x: any) => await hasImage(x.isbn13))?.isbn13))
+        const image = await getImage(book)
 
         result.push({
           listNameEncoded: list_name_encoded,
