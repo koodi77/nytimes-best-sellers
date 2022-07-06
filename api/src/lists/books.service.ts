@@ -16,9 +16,7 @@ const getUrl = async (isbn?: string): Promise<string | undefined> => {
 const getImage = async (book: any): Promise<(string | undefined)> => {
   let url = await getUrl(book?.book_details?.[0]?.primary_isbn13)
 
-  if (url) {
-    return url
-  } else {
+  if (!url) {
     for await (const isbn of book?.isbns) {
       url = await getUrl(isbn?.isbn13)
       if (url) break
