@@ -4,6 +4,8 @@ import { Book } from '@interfaces/book.interface'
 import { Review } from '@interfaces/review.interface'
 import apiClient from './apiClient'
 
+const LIMIT: number = 3
+
 const getUrl = async (isbn?: string): Promise<string | undefined> => {
   const path = isbn ? `https://storage.googleapis.com/du-prd/books/images/${isbn}.jpg` : undefined
 
@@ -17,7 +19,7 @@ const getImage = async (book: any): Promise<(string | undefined)> => {
   let url = await getUrl(book?.book_details?.[0]?.primary_isbn13)
 
   if (!url) {
-    for await (const isbn of book?.isbns) {
+    for (const isbn of book?.isbns) {
       url = await getUrl(isbn?.isbn13)
       if (url) break
     }
@@ -30,8 +32,6 @@ const getImage = async (book: any): Promise<(string | undefined)> => {
  * Service Methods
  */
 export const findByListName = async (listNameEncoded: string): Promise<Book[]> => {
-  const limit: number = 3
-
   const getReviews = async (isbn13: string): Promise<Review[]> => {
     const { data: { results } } = await apiClient.get('reviews.json', { params: { isbn: isbn13 } })
 
@@ -48,7 +48,7 @@ export const findByListName = async (listNameEncoded: string): Promise<Book[]> =
       const { data: { results } } = response
 
       const result: Book[] = []
-      for await (const book of results?.slice(0, limit)) {
+      for (const book of results?.slice(0, LIMIT)) {
         const {
           list_name_encoded,
           rank,
